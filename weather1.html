@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>weather app</title>
+    <link rel="stylesheet" href="weather1.css">
+</head>
+<body>
+    <div class="card">
+        <div class="search">
+            <input type="text" placeholder="enter the city name" spellcheck="false">
+            <button><img src=C:\Users\HP\OneDrive\Desktop\prodigy\weather_try\photo_2024-02-24_21-59-18.jpg height="30px" width="30px"></button>
+        </div>
+        <div class="weather">
+            <img src="C:\Users\HP\OneDrive\Desktop\prodigy\weather app\vecteezy_3d-weather-icon-day-with-rain_24825195.png" height="300px" width="300px">
+            <h1 class="temp">22°c</h1>
+            <h2 class="city">Guwahati</h2>
+            <div class="details">
+                <div class="col">
+                    <img src="C:\Users\HP\OneDrive\Desktop\prodigy\weather app\vecteezy_hand-drawn-doodle-vaporize-icon_22183358.png" height="40px" width="40px">
+                    <div>
+                        <p class="humidity">50%</p>
+                        <p>Humidity</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <img src="C:\Users\HP\OneDrive\Desktop\prodigy\weather app\vecteezy_3d-illustration-of-wind-icon_17811961.png" height="40px" width="40px">
+                    <div>
+                        <p class="wind">15 km/h</p>
+                        <p>Wind speed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const apiKey="fc10c6760ed3e88207c4f062555aaf9c";
+        const apiUrl="https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+
+        const searchBox = document.querySelector(".search input");
+        const searchBtn = document.querySelector(".search button");
+
+        async function checkWeather(city){
+            const response = await fetch(apiUrl+ city + `&appid=${apiKey}`);
+            var data = await response.json();
+
+            console.log(data);
+
+            document.querySelector(".city").innerHTML = data.name;
+            document.querySelector(".temp").innerHTML =Math.round(data.main.temp) + "°c";
+            document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
+            document.querySelector(".wind").innerHTML = data.wind.speed + " km/h";
+        }
+
+        searchBtn.addEventListener("click", ()=>{
+            checkWeather(searchBox.value);
+        })
+       
+    </script>
+    
+    </body>
+    </html>
